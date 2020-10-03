@@ -1,4 +1,5 @@
-﻿using MetroFramework.Forms;
+﻿using MetroFramework.Controls;
+using MetroFramework.Forms;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +19,14 @@ namespace WindowsFormsApp1
 
         private void metroTextBox1_TextChanged(object sender, EventArgs e)
         {
- 
+            if(InputTextBox.Text.Length != 0)
+            {
+                ConfirmButton.Enabled = true;
+            }
+            else
+            {
+                ConfirmButton.Enabled = false;      
+            }
         }
 
         private void metroButton1_Click(object sender, EventArgs e)
@@ -70,10 +78,13 @@ namespace WindowsFormsApp1
         private void metroButton1_Click_1(object sender, EventArgs e)
         {
             //This line of code creates a text file for the data export.
-            System.IO.StreamWriter file = new System.IO.StreamWriter("../../Results/save.txt");
+            string name = string.Format("{0}_{1}_{2}_{3}_{4}_{5}", DateTime.Now.Day, DateTime.Now.Month, DateTime.Now.Year, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            System.IO.StreamWriter file = new System.IO.StreamWriter("../../Results/ "+name+".txt");
             try
             {
-                string sLine = "";
+                if (outputGrid.RowCount != 0)
+                { 
+                string sLine = "  i|  p|  B \n";
 
                 //This for loop loops through each row in the table
                 for (int r = 0; r <= outputGrid.Rows.Count - 1; r++)
@@ -82,13 +93,13 @@ namespace WindowsFormsApp1
                     //is passed from the for loop above.
                     for (int c = 0; c <= outputGrid.Columns.Count - 1; c++)
                     {
-                        sLine = sLine + outputGrid.Rows[r].Cells[c].Value;
+                        sLine = sLine +"  " + outputGrid.Rows[r].Cells[c].Value;
                         if (c != outputGrid.Columns.Count - 1)
                         {
                             //A comma is added as a text delimiter in order
                             //to separate each field in the text file.
                             //You can choose another character as a delimiter.
-                            sLine = sLine + ",";
+                            sLine = sLine + "|";
                         }
                     }
                     //The exported text is written to the text file, one line at a time.
@@ -97,11 +108,17 @@ namespace WindowsFormsApp1
                 }
 
                 file.Close();
-                System.Windows.Forms.MessageBox.Show("Export Complete.", "Program Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                System.Windows.Forms.MessageBox.Show("Экспорт завершен, данные хранятся в папке Results с названием "+name, "Program Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("Отсутствие данных", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    file.Close();
+                }
             }
             catch (System.Exception err)
             {
-                System.Windows.Forms.MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                System.Windows.Forms.MessageBox.Show(err.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 file.Close();
             }
         }
