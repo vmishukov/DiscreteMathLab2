@@ -3,6 +3,7 @@ using MetroFramework.Forms;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using WindowsFormsApp1.Classes;
@@ -79,7 +80,11 @@ namespace WindowsFormsApp1
         {
             //This line of code creates a text file for the data export.
             string name = string.Format("{0}_{1}_{2}_{3}_{4}_{5}", DateTime.Now.Day, DateTime.Now.Month, DateTime.Now.Year, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-            System.IO.StreamWriter file = new System.IO.StreamWriter("../../Results/ "+name+".txt");
+            if (!Directory.Exists("Results"))
+            {
+                Directory.CreateDirectory("Results");               
+            }
+            System.IO.StreamWriter file = new System.IO.StreamWriter("Results/ "+name+".txt");
             try
             {
                 if (outputGrid.RowCount != 0)
@@ -108,7 +113,7 @@ namespace WindowsFormsApp1
                 }
 
                 file.Close();
-                System.Windows.Forms.MessageBox.Show("Экспорт завершен, данные хранятся в папке Results с названием "+name, "Program Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                System.Windows.Forms.MessageBox.Show("Экспорт завершен, данные хранятся в "+ Path.GetFullPath("Results")+ name, "Program Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

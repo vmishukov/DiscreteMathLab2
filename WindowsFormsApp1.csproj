@@ -55,7 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\GrayCode.cs" />
     <Compile Include="Classes\GrayCodeGenerator.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
