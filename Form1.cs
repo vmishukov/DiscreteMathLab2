@@ -45,6 +45,16 @@ namespace WindowsFormsApp1
             int i = 0;
             foreach (var num in GrayCodeGenerator.arr)
             {
+
+                if (i == 0)
+                {
+                    outputGrid.Rows[i].Cells[0].Value = " ";
+                    outputGrid.Rows[i].Cells[1].Value = " ";
+                    outputGrid.Rows[i].Cells[2].Value = num;
+                    i++;
+                }
+                else
+                { 
                 outputGrid.Rows[i].Cells[0].Value = i;
                 if ((double)i == Math.Pow(2,Power))
                 {
@@ -64,6 +74,7 @@ namespace WindowsFormsApp1
                 }
                 outputGrid.Rows[i].Cells[2].Value = num;
                 i++;
+                }
             }
         }
 
