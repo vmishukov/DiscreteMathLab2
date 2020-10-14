@@ -113,7 +113,7 @@ namespace WindowsFormsApp1
                 }
 
                 file.Close();
-                System.Windows.Forms.MessageBox.Show("Экспорт завершен, данные хранятся в "+ Path.GetFullPath("Results")+ name, "Program Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    System.Windows.Forms.MessageBox.Show("Экспорт завершен, данные хранятся в " + Path.GetFullPath(name) , "Program Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
